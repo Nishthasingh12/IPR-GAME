@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: url(images/levelbg.jpg);
+             background-size: cover;
+        }
+
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .question {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .option {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .option:hover {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        .result {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz Game</h1>
+        <div class="question" id="question">Question 1: What is the capital of France?</div>
+        <div class="options">
+            <div class="option" onclick="checkAnswer(0)">A. Paris</div>
+            <div class="option" onclick="checkAnswer(1)">B. London</div>
+            <div class="option" onclick="checkAnswer(0)">C. Berlin</div>
+            <div class="option" onclick="checkAnswer(0)">D. Rome</div>
+        </div>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                question: "What is the capital of France?",
+                options: ["Paris", "London", "Berlin", "Rome"],
+                answerIndexes: [0]
+            },
+            {
+                question: "Which planet is known as the Red Planet?",
+                options: ["Mars", "Earth", "Venus", "Jupiter"],
+                answerIndexes: [0]
+            },
+            {
+                question: "What is the largest mammal on Earth?",
+                options: ["Blue whale", "African elephant", "Giraffe", "Hippopotamus"],
+                answerIndexes: [0]
+            },
+            {
+                question: "What gas do plants absorb from the atmosphere?",
+                options: ["Carbon dioxide", "Oxygen", "Nitrogen", "Hydrogen"],
+                answerIndexes: [0]
+            },
+            {
+                question: "What is the tallest mountain in the world?",
+                options: ["Mount Everest", "K2", "Kangchenjunga", "Lhotse"],
+                answerIndexes: [0]
+            },
+            {
+                question: "Which gas makes up the majority of Earth's atmosphere?",
+                options: ["Nitrogen", "Oxygen", "Carbon dioxide", "Argon"],
+                answerIndexes: [0]
+            },
+            {
+                question: "Which planet is known as the 'Morning Star' or 'Evening Star'?",
+                options: ["Venus", "Mars", "Mercury", "Jupiter"],
+                answerIndexes: [0]
+            },
+            {
+                question: "What is the chemical symbol for gold?",
+                options: ["Au", "Ag", "Fe", "Cu"],
+                answerIndexes: [0]
+            },
+            {
+                question: "How many continents are there on Earth?",
+                options: ["7", "5", "6", "8"],
+                answerIndexes: [0]
+            },
+            {
+                question: "What is the smallest prime number?",
+                options: ["2", "1", "3", "5"],
+                answerIndexes: [0]
+            },
+            // Add more questions here...
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function displayQuestion() {
+            if (currentQuestion < questions.length) {
+                document.getElementById("question").textContent = `Question ${currentQuestion + 1}: ${questions[currentQuestion].question}`;
+                const optionsHTML = questions[currentQuestion].options.map((option, index) => {
+                    return `<div class="option" onclick="checkAnswer(${index})">${String.fromCharCode(65 + index)}. ${option}</div>`;
+                }).join("");
+                document.querySelector(".options").innerHTML = optionsHTML;
+            } else {
+                document.getElementById("question").textContent = "Quiz Completed!";
+                document.querySelector(".options").innerHTML = "";
+                document.getElementById("result").textContent = `Your Score: ${score} / ${questions.length}`;
+            }
+        }
+
+        function checkAnswer(selectedIndex) {
+            const correctAnswers = questions[currentQuestion].answerIndexes;
+            if (correctAnswers.includes(selectedIndex)) {
+                score++;
+            }
+            currentQuestion++;
+            displayQuestion();
+        }
+
+        displayQuestion();
+    </script>
+</body>
+</html>
